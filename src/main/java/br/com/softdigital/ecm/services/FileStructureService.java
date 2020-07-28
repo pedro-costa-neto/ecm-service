@@ -73,6 +73,12 @@ public class FileStructureService {
 		save(newObj);
 	}
 	
+	public void markAsDeleted(String id) {
+		FileStructureDecorator obj = findById(id);
+		obj.setTrash(true);
+		save(obj);
+	}
+	
 	public FileStructureDecorator findById(String id) {
 		return repository.findById(id).get();
 	}
