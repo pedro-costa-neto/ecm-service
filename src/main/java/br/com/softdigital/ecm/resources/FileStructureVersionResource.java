@@ -12,16 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.softdigital.ecm.dto.FileStructureSimpleDto;
 import br.com.softdigital.ecm.services.FileStructureVersionService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/v1/file/structure/version")
+@Api(description = "Manipulação das versões dos arquivos")
 public class FileStructureVersionResource {
 
 	@Autowired
 	private FileStructureVersionService service;
 	
 	@GetMapping(path = "/{mainId}")
+	@ApiOperation(value = "Retorna todas as verões referente ao arquivo")
 	public ResponseEntity<List<FileStructureSimpleDto>> listByParentId(@PathVariable String mainId) {
 		List<FileStructureSimpleDto> list = service.findByMainId(mainId);
 		return ResponseEntity.ok(list);

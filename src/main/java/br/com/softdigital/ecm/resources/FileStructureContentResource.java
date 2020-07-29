@@ -14,23 +14,28 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.softdigital.ecm.domains.FileStructureDecorator;
 import br.com.softdigital.ecm.dto.FileStructureContentDto;
 import br.com.softdigital.ecm.services.FileStructureContentService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/v1/file/structure/document/content")
+@Api(description = "Manipulação de documento tipo conteúdo")
 public class FileStructureContentResource {
 	
 	@Autowired
 	FileStructureContentService service;
 
 	@PostMapping
+	@ApiOperation(value = "Criação de documento tipo conteúdo")
 	public ResponseEntity<FileStructureDecorator> createDocument(@RequestBody FileStructureContentDto contentDto) {
 		service.save(service.fromDto(contentDto));
 		return ResponseEntity.noContent().build();
 	}
 	
 	@PutMapping(path = "/{id}")
-	public ResponseEntity<FileStructureDecorator> createDocument(
+	@ApiOperation(value = "Alteração de documento tipo conteúdo")
+	public ResponseEntity<FileStructureDecorator> changeDocument(
 				@RequestBody FileStructureContentDto objDto,
 				@PathVariable String id) {
 		objDto.setId(id);
@@ -39,6 +44,7 @@ public class FileStructureContentResource {
 	}
 	
 	@DeleteMapping(path = "/{id}")
+	@ApiOperation(value = "Exclusão de documento tipo conteúdo")
 	public ResponseEntity<FileStructureDecorator> deleteFolder(@PathVariable String id) {	
 		service.markAsDeleted(id);
 		return ResponseEntity.noContent().build();
