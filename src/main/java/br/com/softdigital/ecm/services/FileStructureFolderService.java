@@ -21,7 +21,11 @@ public class FileStructureFolderService extends FileStructureService {
 		
 		folder.setId(folderDto.getId());
 		folder.setDescription(folderDto.getDescription());
-		folder.setParentId(folderDto.getParentId());
+
+		if(folderDto.getParentId() != null) {
+			FileStructureDecorator parentId = findById(folderDto.getParentId());
+			folder.setParentId(parentId);
+		}
 		
 		return folder;
 	}

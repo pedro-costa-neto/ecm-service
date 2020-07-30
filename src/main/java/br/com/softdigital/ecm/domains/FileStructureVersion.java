@@ -5,7 +5,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("file_structure_version")
 public class FileStructureVersion extends FileStructureDecorator {
-
+	private static final long serialVersionUID = 1L;
+	
 	@DBRef
 	private FileStructureDecorator mainId;
 	

@@ -1,10 +1,12 @@
 package br.com.softdigital.ecm.domains;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.com.softdigital.ecm.domains.enums.ControlIncrement;
@@ -14,8 +16,9 @@ import lombok.Setter;
 
 @Data
 @Document("file_structure")
-public abstract class FileStructureDecorator {
-	
+public abstract class FileStructureDecorator implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	protected String id;
 	
@@ -34,7 +37,10 @@ public abstract class FileStructureDecorator {
 	protected String comments;
 	protected String keyWords;
 	protected String versionDescription;
-	protected String parentId;
+	
+	@DBRef
+	protected FileStructureDecorator parentId;
+	
 	protected String fileExtension;
 	protected String fileName;
 	protected String mainContent;
@@ -46,4 +52,5 @@ public abstract class FileStructureDecorator {
 	protected ControlIncrement controlIncrement;
 	
 	public abstract Integer getDocumentType();
+	
 }

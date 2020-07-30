@@ -35,10 +35,14 @@ public class FileStructureNormalDocumentService extends FileStructureService {
 		obj.setComments(objDto.getComments());
 		obj.setKeyWords(objDto.getKeyWords());
 		obj.setVersionDescription(objDto.getVersionDescription());
-		obj.setParentId(objDto.getParentId());
 		obj.setFileName(objDto.getFileName());
 		obj.setFileExtension(objDto.getFileExtension());
 		obj.setControlIncrement(ControlIncrement.VERSION);
+		
+		if(objDto.getParentId() != null) {
+			FileStructureDecorator parentId = findById(objDto.getParentId());
+			obj.setParentId(parentId);
+		}
 		
 		byte[] mainFileByte = Base64.getDecoder().decode(objDto.getMainFile());
 		obj.setMainFile(mainFileByte);

@@ -32,9 +32,13 @@ public class FileStructureContentService extends FileStructureService {
 		obj.setComments(objDto.getComments());
 		obj.setKeyWords(objDto.getKeyWords());
 		obj.setVersionDescription(objDto.getVersionDescription());
-		obj.setParentId(objDto.getParentId());
 		obj.setMainContent(objDto.getMainContent());
 		obj.setDocumentExpires(objDto.isDocumentExpires());
+
+		if(objDto.getParentId() != null) {
+			FileStructureDecorator parentId = findById(objDto.getParentId());
+			obj.setParentId(parentId);
+		}
 		
 		return obj;
 	}
