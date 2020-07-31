@@ -30,6 +30,10 @@ public class FileStructureService {
 			obj.setVersionReview(10000);
 		}
 		
+		if(obj.getParentId() != null && obj.getParentId().getDocumentType() != 0) {
+			throw new RuntimeException("A estrutura parentId não é uma pasta");
+		}
+		
 		repository.save(obj);
 	}
 	
@@ -37,20 +41,19 @@ public class FileStructureService {
 		FileStructureDecorator newObj = findById(obj.getId());
 
 		if(newObj.isMandatoryVersionReview() && obj.getControlIncrement().equals(null)) {
-			// mensagem de erro quando o controle de versão/revisão é obrigatório e o controlIncrement for null
+			throw new RuntimeException("Por favor, informar se é uma versão ou revisão!");
 		}
-				
-		if(obj.getControlIncrement().equals(ControlIncrement.VERSION)) {
+		
+		ControlIncrement controlIncrement = obj.getControlIncrement();
+		
+		if(controlIncrement != null && controlIncrement.equals(ControlIncrement.VERSION)) {
 			versionService.save(newObj);
 			int version = (int) (newObj.getVersionReview() / 9999);
 			newObj.setVersionReview((version * 10000) + 10000);
 		}
-		else if(obj.getControlIncrement().equals(ControlIncrement.REVIEW)) {
+		else if(controlIncrement != null && controlIncrement.equals(ControlIncrement.REVIEW)) {
 			versionService.save(newObj);
 			newObj.setVersionReview(newObj.getVersionReview() + 1);
-		}
-		else {
-			newObj.setVersionReview(obj.getVersionReview());
 		}
 		
 		newObj.setDocumentExpires(obj.isDocumentExpires());

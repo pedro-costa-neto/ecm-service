@@ -2,6 +2,7 @@ package br.com.softdigital.ecm.dto;
 
 import java.util.Date;
 
+import br.com.softdigital.ecm.domains.enums.ControlIncrement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,4 +27,5 @@ public class FileStructureNormalDocumentDto {
 	private String parentId;
 	private String fileExtension;
 	private String fileName;
+	private ControlIncrement controlIncrement;
 }

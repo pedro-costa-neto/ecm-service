@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.softdigital.ecm.domains.FileStructureDecorator;
 import br.com.softdigital.ecm.domains.FileStructureNormalDocument;
-import br.com.softdigital.ecm.domains.enums.ControlIncrement;
 import br.com.softdigital.ecm.dto.FileStructureNormalDocumentDto;
 import br.com.softdigital.ecm.repositories.FileStructureRepository;
 
@@ -37,7 +36,7 @@ public class FileStructureNormalDocumentService extends FileStructureService {
 		obj.setVersionDescription(objDto.getVersionDescription());
 		obj.setFileName(objDto.getFileName());
 		obj.setFileExtension(objDto.getFileExtension());
-		obj.setControlIncrement(ControlIncrement.VERSION);
+		obj.setControlIncrement(objDto.getControlIncrement());
 		
 		if(objDto.getParentId() != null) {
 			FileStructureDecorator parentId = findById(objDto.getParentId());
